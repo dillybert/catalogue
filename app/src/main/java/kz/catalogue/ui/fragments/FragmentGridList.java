@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import kz.catalogue.R;
-import kz.catalogue.ui.utils.Utils;
+import kz.catalogue.ui.utils.UiUtils;
 
 public class FragmentGridList extends Fragment {
     @Nullable
@@ -19,7 +19,7 @@ public class FragmentGridList extends Fragment {
         View view = inflater.inflate(R.layout.fragment_grid_list, container, false);
 
         view.findViewById(R.id.test).setOnClickListener(view1 -> {
-            Utils.loadFragment(getParentFragmentManager(), new FragmentCircularProgressView(), true);
+            UiUtils.loadFragment(getParentFragmentManager(), new FragmentCircularProgressView(), true);
         });
 
         return view;

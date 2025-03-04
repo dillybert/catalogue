@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 
 import kz.catalogue.R;
 
-public class Utils {
+public class UiUtils {
     public static float dpToPx(Context context, float dp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
