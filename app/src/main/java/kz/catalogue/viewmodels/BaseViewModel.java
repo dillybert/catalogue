@@ -1,4 +1,4 @@
-package kz.catalogue.viewmodel;
+package kz.catalogue.viewmodels;
 
 import androidx.lifecycle.ViewModel;
 

@@ -8,14 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewbinding.ViewBinding;
 
-import kz.catalogue.R;
+public abstract class BaseFragment<VB extends ViewBinding> extends Fragment {
+    protected VB binding;
 
-public class FragmentCircularProgressView extends Fragment {
+    protected abstract VB createViewBinding(LayoutInflater inflater, ViewGroup container);
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_circular_progress_view, container, false);
-        return view;
+        super.onCreateView(inflater, container, savedInstanceState);
+        binding = createViewBinding(inflater, container);
+        return binding.getRoot();
     }
 }

@@ -1,4 +1,4 @@
-package kz.catalogue.viewmodel;
+package kz.catalogue.viewmodels;
 
 public class MainViewModel extends BaseViewModel {
 }

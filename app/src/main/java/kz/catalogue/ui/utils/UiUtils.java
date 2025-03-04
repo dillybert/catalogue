@@ -5,6 +5,7 @@ import android.util.TypedValue;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import kz.catalogue.R;
 
@@ -13,16 +14,25 @@ public class UiUtils {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
-    public static void loadFragment(FragmentManager manager, Fragment fragment, boolean addToBackStack) {
-        String fragmentTag = fragment.getClass().getSimpleName();
+    public static void navigateToFragment(FragmentManager fragmentManager, Fragment fragment, boolean addToBackStack) {
+        final String fragmentTag = fragment.getClass().getSimpleName();
 
-        Fragment currentFragment = manager.findFragmentById(R.id.fragment_container_view_tag);
-        if (currentFragment != null && currentFragment.getClass().getSimpleName().equals(fragmentTag)) {
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container_view_tag);
+        if (currentFragment != null &&
+                currentFragment.getClass().getSimpleName().equals(fragmentTag)) {
             return;
         }
 
-        androidx.fragment.app.FragmentTransaction transaction = manager.beginTransaction()
-                .replace(R.id.fragment_container_view_tag, fragment, fragmentTag);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.setCustomAnimations(
+                R.anim.scale_in,
+                R.anim.scale_out,
+                R.anim.scale_in,
+                R.anim.scale_out
+        );
+
+        transaction.replace(R.id.fragment_container_view_tag, fragment, fragmentTag);
 
         if (addToBackStack) {
             transaction.addToBackStack(fragmentTag);

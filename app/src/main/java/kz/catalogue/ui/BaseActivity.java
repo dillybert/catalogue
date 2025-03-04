@@ -13,7 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewbinding.ViewBinding;
 
-import kz.catalogue.viewmodel.BaseViewModel;
+import kz.catalogue.viewmodels.BaseViewModel;
 
 public abstract class BaseActivity<VB extends ViewBinding, VM extends BaseViewModel> extends AppCompatActivity {
     protected VB binding;
@@ -37,12 +37,12 @@ public abstract class BaseActivity<VB extends ViewBinding, VM extends BaseViewMo
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.topMargin = insets.top;
-            mlp.leftMargin = insets.left;
-            mlp.bottomMargin = insets.bottom;
-            mlp.rightMargin = insets.right;
-            v.setLayoutParams(mlp);
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            layoutParams.topMargin = insets.top;
+            layoutParams.leftMargin = insets.left;
+            layoutParams.bottomMargin = insets.bottom;
+            layoutParams.rightMargin = insets.right;
+            v.setLayoutParams(layoutParams);
 
             return WindowInsetsCompat.CONSUMED;
         });

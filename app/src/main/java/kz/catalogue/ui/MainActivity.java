@@ -7,15 +7,15 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import kz.catalogue.databinding.ActivityMainBinding;
-import kz.catalogue.ui.fragments.FragmentGridList;
+import kz.catalogue.ui.fragments.GridListFragment;
 import kz.catalogue.ui.utils.UiUtils;
 import kz.catalogue.ui.utils.AppBarAnimator;
-import kz.catalogue.viewmodel.MainViewModel;
+import kz.catalogue.viewmodels.MainViewModel;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> {
 
     private AppBarAnimator appBarAnimator;
-    private boolean isBackButtonVisible = false;
+    private boolean isNavigationBackButtonVisible = false;
 
     @Override
     protected ActivityMainBinding createViewBinding(LayoutInflater inflater) {
@@ -33,23 +33,23 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         setContentView(binding.getRoot());
         appBarAnimator = new AppBarAnimator(binding, this);
 
-        setupNavigation();
+        initNavigationListeners();
 
         if (savedInstanceState == null) {
-            UiUtils.loadFragment(getSupportFragmentManager(), new FragmentGridList(), false);
+            UiUtils.navigateToFragment(getSupportFragmentManager(), new GridListFragment(), false);
         }
     }
 
-    private void setupNavigation() {
+    private void initNavigationListeners() {
         binding.appBarBackButton.setOnClickListener(v -> getSupportFragmentManager().popBackStack());
-        getSupportFragmentManager().addOnBackStackChangedListener(this::updateNavigationState);
-        updateNavigationState();
+        getSupportFragmentManager().addOnBackStackChangedListener(this::refreshNavigationState);
+        refreshNavigationState();
     }
 
-    private void updateNavigationState() {
+    private void refreshNavigationState() {
         boolean hasBackStack = getSupportFragmentManager().getBackStackEntryCount() > 0;
-        if (hasBackStack != isBackButtonVisible) {
-            isBackButtonVisible = hasBackStack;
+        if (hasBackStack != isNavigationBackButtonVisible) {
+            isNavigationBackButtonVisible = hasBackStack;
             appBarAnimator.animateBackButton(hasBackStack);
             appBarAnimator.animateTitle(hasBackStack);
         }
